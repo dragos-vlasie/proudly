@@ -6,7 +6,7 @@ import InfoBoard from "../infoBoard/InfoBoard";
 export const Dashboard = () => {
   const dispatch = useDispatch();
   const userData = useSelector(state => state.data.users);
-  const Data = useSelector(state => state);
+  // const Data = useSelector(state => state);
 
   const onthisClick = e => {};
 

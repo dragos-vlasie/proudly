@@ -7,6 +7,7 @@ export const Navbar = () => {
   const dispatch = useDispatch();
   const logoutUser = () => dispatch(logoutUserAction());
   const auth = useSelector(state => state.auth);
+  const userName = useSelector(state => state.auth.user.name);
 
   const onLogoutClick = e => {
     logoutUser();
@@ -24,7 +25,7 @@ export const Navbar = () => {
         className="btn btn-large waves-effect waves-light hoverable blue accent-3"
       >
         <Link to="/account" className="btn-flat waves-effect">
-          Account
+          {userName}
         </Link>
       </button>
       <button

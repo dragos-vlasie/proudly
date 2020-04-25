@@ -31,8 +31,8 @@ export const InfoBoard = ({ users }) => {
                     <p></p>
                   </div>
                   <div className="card-action">
-                    <a href="#">{email}</a>
-                    <a href="#">{date}</a>
+                    <span>{email}</span>
+                    <span>{date}</span>
                   </div>
                 </div>
               </div>

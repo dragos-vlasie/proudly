@@ -3,7 +3,6 @@ import { GET_ERRORS, POST_POINT, POST_TASKS } from "./types";
 
 // Post a new Task
 export const addTaskAction = newTask => dispatch => {
-  console.log("newTask", newTask);
   axios
     .post("/api/tasks/", newTask)
     .then(res => {

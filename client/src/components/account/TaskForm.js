@@ -7,27 +7,26 @@ export const TaskForm = () => {
   const [task, setTask] = useState("");
 
   const errors = useSelector(state => state);
-  const userId = useSelector(state => state.auth.user.id);
-  console.log("TaskForm -> userId", userId);
+  const userName = useSelector(state => state.auth.user.name);
   const dispatch = useDispatch();
 
   const onChange = e => {
     setTask(e.target.value);
-    console.log("TaskForm -> userId", userId);
+    console.log("TaskForm -> userName", userName);
   };
 
   const onSubmit = e => {
     e.preventDefault();
 
     const taskData = {
-      userId: userId,
+      userName: userName,
       name: task
     };
     dispatch(addTaskAction(taskData));
   };
 
   return (
-    <div clasName="TaskForm">
+    <div className="TaskForm">
       <div className="container">
         <div style={{ marginTop: "4rem" }} className="row">
           <div className="col s8">

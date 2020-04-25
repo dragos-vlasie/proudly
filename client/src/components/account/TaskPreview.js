@@ -9,8 +9,7 @@ export const TaskPreview = () => {
   const Data = useSelector(state => state.data.tasks);
   const DataBig = useSelector(state => state);
   console.log("TaskPreview -> DataBig", DataBig);
-
-  const onthisClick = e => {};
+  const userName = useSelector(state => state.auth.user.name);
 
   const loadTasks = useCallback(() => {
     dispatch(getTasksAction());
@@ -31,7 +30,7 @@ export const TaskPreview = () => {
 
   return (
     <div
-      clasName="TaskPreview"
+      className="TaskPreview"
       style={{
         display: "flex",
         flexDirection: "row",
@@ -40,7 +39,7 @@ export const TaskPreview = () => {
       }}
     >
       {Data &&
-        Data.map(({ _id, name, date, points }) => {
+        Data.map(({ _id, userName, name, date, points }) => {
           return (
             <div
               className="hey"
@@ -56,7 +55,7 @@ export const TaskPreview = () => {
                 <div className="card blue-grey darken-1">
                   <div className="card-content white-text">
                     <span className="card-title">{name}</span>
-                    <p></p>
+                    <p>{userName}</p>
                   </div>
                   <div className="card-action">
                     <span>{date}</span>

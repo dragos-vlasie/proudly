@@ -7,7 +7,7 @@ import { loginUserAction } from "../../actions/authActions";
 export const Login = withRouter(({ history }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState("");
+  const errors = useSelector(state => state.errors);
 
   const dispatch = useDispatch();
   const loginUser = newUser => dispatch(loginUserAction(newUser, history));
@@ -20,6 +20,8 @@ export const Login = withRouter(({ history }) => {
       case "password":
         setPassword(e.target.value);
         break;
+      default:
+        return "";
     }
   };
 

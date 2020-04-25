@@ -8,7 +8,7 @@ export const Account = () => {
   const auth = useSelector(state => state.auth);
   if (!auth.isAuthenticated) return <Redirect to="/login" />;
   return (
-    <div clasName="Account">
+    <div className="Account">
       <TaskForm />
       <TaskPreview />
     </div>

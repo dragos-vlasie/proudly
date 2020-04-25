@@ -13,13 +13,14 @@ const addPoint = (state, id) => {
       task.points++;
     }
   });
-  console.log("addPoint -> state.tasks", state.tasks);
+  console.log("addPoint -> state.tasks;", state.tasks);
   return state.tasks;
 };
 
 export default function (state = initialState, action) {
   switch (action.type) {
     case GET_USERS:
+      console.log("action.payload", action.payload);
       return {
         ...state,
         users: action.payload
@@ -35,14 +36,11 @@ export default function (state = initialState, action) {
         tasks: [...state.tasks, action.payload]
       };
     case POST_POINT:
-      console.log("action.payload", action.payload);
-      console.log("state.tasks", state.tasks);
       return {
         ...state,
         tasks: addPoint(state, action.payload)
       };
     case DELETE_TASK:
-      console.log("action.payload 2", action.payload);
       return {
         ...state,
         tasks: state.tasks.filter(tasks => tasks._id !== action.payload)

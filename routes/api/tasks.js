@@ -25,7 +25,9 @@ router.get("/", async (req, res) => {
 // @access  Private
 
 router.post("/", async (req, res) => {
+  console.log("req", req);
   const newTask = new Task({
+    userName: req.body.userName,
     name: req.body.name
   });
 
