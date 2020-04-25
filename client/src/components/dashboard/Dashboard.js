@@ -5,21 +5,16 @@ import InfoBoard from "../infoBoard/InfoBoard";
 
 export const Dashboard = () => {
   const dispatch = useDispatch();
-  const userData = useSelector(state => state.users.return);
+  const userData = useSelector(state => state.data.users);
   const Data = useSelector(state => state);
 
-  const onthisClick = e => {
-    console.log(userData);
-    console.log(Data);
-  };
+  const onthisClick = e => {};
 
   const loadUsers = useCallback(() => {
-    console.log("load");
     dispatch(getUsersAction());
   }, [dispatch]);
 
   useEffect(() => {
-    console.log("effect");
     loadUsers();
   }, [loadUsers]);
 

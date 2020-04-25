@@ -1,7 +1,6 @@
 import React from "react";
 
 export const InfoBoard = ({ users }) => {
-  console.log(users);
   return (
     <div
       className="InfoBoard"

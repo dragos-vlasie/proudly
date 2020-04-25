@@ -4,13 +4,10 @@ import setAuthToken from "../utils/setAuthToken";
 import { GET_ERRORS, SET_CURRENT_USER, USER_LOADING } from "./types";
 // Register User
 export const registerUserAction = (userData, history) => dispatch => {
-  console.log(userData);
-  console.log(history);
   axios
     .post("/api/users/register", userData)
     .then(res => history.push("/login")) // re-direct to login on successful register
     .catch(err => {
-      console.log(err);
       dispatch({
         type: GET_ERRORS,
         payload: err.response.data

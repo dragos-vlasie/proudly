@@ -1,9 +1,9 @@
-// import auth from "../../middleware/auth";
+const auth = require("../../middleware/middleware");
 const express = require("express");
 const router = express.Router();
 
 // Tasks Model
-const Tasks = require("../../models/Tasks");
+const Task = require("../../models/Tasks");
 
 // @route   GET api/tasks
 // @desc    Get All Tasks
@@ -20,18 +20,18 @@ router.get("/", async (req, res) => {
   }
 });
 
-// @route   POST api/items
-// @desc    Create An Item
+// @route   POST api/tasks
+// @desc    Create An Task
 // @access  Private
 
 router.post("/", async (req, res) => {
-  const newTask = new Item({
+  const newTask = new Task({
     name: req.body.name
   });
 
   try {
     const task = await newTask.save();
-    if (!task) throw Error("Something went wrong saving the task");
+    if (!task) throw Error("Something went wrong saving task");
 
     res.status(200).json(task);
   } catch (e) {
@@ -39,25 +39,45 @@ router.post("/", async (req, res) => {
   }
 });
 
-// /**
-//  * @route   DELETE api/items/:id
-//  * @desc    Delete A Item
-//  * @access  Private
-//  */
+// @route   POST api/tasks/id/points
+// @desc    Create An Task
+// @access  Private
 
-// router.delete("/:id", auth, async (req, res) => {
-//   try {
-//     const item = await Item.findById(req.params.id);
-//     if (!item) throw Error("No item found");
+router.post("/:id/points", async (req, res) => {
+  try {
+    const task = await Task.findById(req.params.id);
+    console.log(task);
+    if (!task) throw Error("No task found");
 
-//     const removed = await item.remove();
-//     if (!removed)
-//       throw Error("Something went wrong while trying to delete the item");
+    const pointAdded = await task.update({ $set: { points: 1 } });
+    if (!pointAdded)
+      throw Error("Something went wrong while trying to add the point");
 
-//     res.status(200).json({ success: true });
-//   } catch (e) {
-//     res.status(400).json({ msg: e.message, success: false });
-//   }
-// });
+    res.status(200).json({ success: "success" });
+  } catch (e) {
+    res.status(400).json({ msg: e.message });
+  }
+});
+
+/**
+ * @route   DELETE api/tasks/:id
+ * @desc    Delete A task
+ * @access  Private
+ */
+
+router.delete("/:id", async (req, res) => {
+  try {
+    const task = await Task.findById(req.params.id);
+    if (!task) throw Error("No task found");
+
+    const removed = await task.remove();
+    if (!removed)
+      throw Error("Something went wrong while trying to delete the task");
+
+    res.status(200).json({ success: true });
+  } catch (e) {
+    res.status(400).json({ msg: e.message, success: false });
+  }
+});
 
 module.exports = router;
