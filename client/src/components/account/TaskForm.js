@@ -8,6 +8,8 @@ export const TaskForm = () => {
 
   const errors = useSelector(state => state);
   const userName = useSelector(state => state.auth.user.name);
+  const userId = useSelector(state => state.auth.user.id);
+  console.log("TaskForm -> userId", userId);
   const dispatch = useDispatch();
 
   const onChange = e => {
@@ -20,6 +22,7 @@ export const TaskForm = () => {
 
     const taskData = {
       userName: userName,
+      userId: userId,
       name: task
     };
     dispatch(addTaskAction(taskData));

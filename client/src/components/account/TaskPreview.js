@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteTaskAction } from "../../actions/deleteActions";
-import { getTasksAction } from "../../actions/getDataActions";
+import { getTasksByUserIdAction } from "../../actions/getDataActions";
 import { postPointAction } from "../../actions/postDataActions";
 
 export const TaskPreview = () => {
@@ -10,9 +10,10 @@ export const TaskPreview = () => {
   const DataBig = useSelector(state => state);
   console.log("TaskPreview -> DataBig", DataBig);
   const userName = useSelector(state => state.auth.user.name);
+  const userId = useSelector(state => state.auth.user.id);
 
   const loadTasks = useCallback(() => {
-    dispatch(getTasksAction());
+    dispatch(getTasksByUserIdAction(userId));
   }, [dispatch]);
 
   const handleDelete = id => {
@@ -25,7 +26,7 @@ export const TaskPreview = () => {
   };
 
   useEffect(() => {
-    loadTasks();
+    loadTasks(userId);
   }, [loadTasks]);
 
   return (
@@ -39,7 +40,8 @@ export const TaskPreview = () => {
       }}
     >
       {Data &&
-        Data.map(({ _id, userName, name, date, points }) => {
+        Data.map(({ _id, name, userData, date, points }) => {
+          console.log("TaskPreview -> userData", userData);
           return (
             <div
               className="hey"
@@ -55,7 +57,7 @@ export const TaskPreview = () => {
                 <div className="card blue-grey darken-1">
                   <div className="card-content white-text">
                     <span className="card-title">{name}</span>
-                    <p>{userName}</p>
+                    <p>{userData.userName}</p>
                   </div>
                   <div className="card-action">
                     <span>{date}</span>

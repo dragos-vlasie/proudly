@@ -2,6 +2,7 @@ import {
   DELETE_TASK,
   GET_TASKS,
   GET_USERS,
+  GET_USERS_TASKS,
   POST_POINT,
   POST_TASKS
 } from "../actions/types";
@@ -20,12 +21,17 @@ const addPoint = (state, id) => {
 export default function (state = initialState, action) {
   switch (action.type) {
     case GET_USERS:
-      console.log("action.payload", action.payload);
       return {
         ...state,
         users: action.payload
       };
     case GET_TASKS:
+      return {
+        ...state,
+        tasks: action.payload
+      };
+    case GET_USERS_TASKS:
+      console.log("GET_USERS_TASKS", action.payload);
       return {
         ...state,
         tasks: action.payload

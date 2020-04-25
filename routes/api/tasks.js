@@ -20,14 +20,32 @@ router.get("/", async (req, res) => {
   }
 });
 
+// @route   GET api/tasks/id
+// @desc    Get All Tasks of user id
+// @access  Public
+
+router.get("/:id", async (req, res) => {
+  console.log("req", req.params);
+  try {
+    const task = await Task.find({ "userData.userId": req.params.id });
+    if (!task) throw Error("No Task");
+
+    res.status(200).json(task);
+  } catch (e) {
+    res.status(400).json({ msg: e.message });
+  }
+});
+
 // @route   POST api/tasks
 // @desc    Create An Task
 // @access  Private
 
 router.post("/", async (req, res) => {
-  console.log("req", req);
   const newTask = new Task({
-    userName: req.body.userName,
+    userData: {
+      userId: req.body.userId,
+      userName: req.body.userName
+    },
     name: req.body.name
   });
 
