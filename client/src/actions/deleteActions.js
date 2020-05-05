@@ -2,10 +2,11 @@ import axios from "axios";
 import { DELETE_TASK, GET_ERRORS } from "./types";
 
 // Register User
-export const deleteTaskAction = id => dispatch => {
+export const deleteTaskAction = (id, userId) => dispatch => {
   axios
-    .delete(`/api/tasks/${id}`)
+    .delete(`/api/accounts/${id}/${userId}`)
     .then(res => {
+      console.log("res", res);
       dispatch({
         type: DELETE_TASK,
         payload: id

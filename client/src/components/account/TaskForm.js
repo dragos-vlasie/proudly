@@ -1,5 +1,7 @@
-import classnames from "classnames";
 import React, { useState } from "react";
+import Button from "react-bootstrap/Button";
+import Container from "react-bootstrap/Container";
+import Form from "react-bootstrap/Form";
 import { useDispatch, useSelector } from "react-redux";
 import { addTaskAction } from "../../actions/postDataActions";
 
@@ -9,12 +11,10 @@ export const TaskForm = () => {
   const errors = useSelector(state => state);
   const userName = useSelector(state => state.auth.user.name);
   const userId = useSelector(state => state.auth.user.id);
-  console.log("TaskForm -> userId", userId);
   const dispatch = useDispatch();
 
   const onChange = e => {
     setTask(e.target.value);
-    console.log("TaskForm -> userName", userName);
   };
 
   const onSubmit = e => {
@@ -25,15 +25,17 @@ export const TaskForm = () => {
       userId: userId,
       name: task
     };
+    console.log("TaskForm -> taskData", taskData);
     dispatch(addTaskAction(taskData));
   };
 
   return (
     <div className="TaskForm">
       <div className="container">
-        <div style={{ marginTop: "4rem" }} className="row">
+        <Container style={{ marginTop: "25px", marginBottom: "25px" }}>
+          {/* <div style={{ marginTop: "4rem" }} className="row">
           <div className="col s8">
-            <form noValidate onSubmit={onSubmit}>
+            <form onSubmit={onSubmit}>
               <div className="input-field col s12">
                 <input
                   onChange={onChange}
@@ -67,7 +69,24 @@ export const TaskForm = () => {
               </div>
             </form>
           </div>
-        </div>
+        </div> */}
+          <Form onSubmit={onSubmit}>
+            <Form.Group>
+              <Form.Label>Task</Form.Label>
+              <Form.Control
+                id="task"
+                type="text"
+                placeholder="Add Task Name"
+                onChange={onChange}
+                value={task}
+                error={errors.msg}
+              />
+            </Form.Group>
+            <Button variant="primary" type="submit">
+              Submit
+            </Button>
+          </Form>
+        </Container>
       </div>
     </div>
   );

@@ -4,15 +4,15 @@ import { GET_ERRORS, POST_POINT, POST_TASKS } from "./types";
 // Post a new Task
 export const addTaskAction = newTask => dispatch => {
   axios
-    .post("/api/tasks/", newTask)
+    .post("/api/accounts/", newTask)
     .then(res => {
-      console.log("res", res);
       dispatch({
         type: POST_TASKS,
         payload: res.data
       });
     }) // re-direct to login on successful register
     .catch(err => {
+      console.log("err", err);
       dispatch({
         type: GET_ERRORS,
         payload: err.response.data
@@ -21,13 +21,13 @@ export const addTaskAction = newTask => dispatch => {
 };
 
 // Post a new point
-export const postPointAction = id => dispatch => {
+export const postPointAction = (userId, taskId) => dispatch => {
   axios
-    .post(`/api/tasks/${id}/points`)
+    .post(`/api/accounts/${userId}/${taskId}/points`)
     .then(res => {
       dispatch({
         type: POST_POINT,
-        payload: id
+        payload: userId
       });
     }) // re-direct to login on successful register
     .catch(err => {

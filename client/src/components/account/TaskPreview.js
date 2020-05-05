@@ -1,8 +1,10 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
+import Container from "react-bootstrap/Container";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteTaskAction } from "../../actions/deleteActions";
-import { getTasksByUserIdAction } from "../../actions/getDataActions";
+import { getAccountByUserIdAction } from "../../actions/getDataActions";
 import { postPointAction } from "../../actions/postDataActions";
+import Task from "./Task";
 
 export const TaskPreview = () => {
   const dispatch = useDispatch();
@@ -11,23 +13,27 @@ export const TaskPreview = () => {
   console.log("TaskPreview -> DataBig", DataBig);
   const userName = useSelector(state => state.auth.user.name);
   const userId = useSelector(state => state.auth.user.id);
+  const [tasks, setTasks] = useState([]);
 
-  const loadTasks = useCallback(() => {
-    dispatch(getTasksByUserIdAction(userId));
+  const loadAccount = useCallback(() => {
+    dispatch(getAccountByUserIdAction(userId));
   }, [dispatch]);
 
   const handleDelete = id => {
     dispatch(deleteTaskAction(id));
   };
 
-  const handleAddPoint = id => {
-    console.log(id);
-    dispatch(postPointAction(id));
+  const handleAddPoint = (userId, taskId) => {
+    dispatch(postPointAction(userId, taskId));
   };
 
   useEffect(() => {
-    loadTasks(userId);
-  }, [loadTasks]);
+    loadAccount(userId);
+  }, [loadAccount]);
+
+  useEffect(() => {
+    setTasks(Data);
+  });
 
   return (
     <div
@@ -39,38 +45,21 @@ export const TaskPreview = () => {
         justifyContent: "space-between"
       }}
     >
-      {Data &&
-        Data.map(({ _id, name, userData, date, points }) => {
-          console.log("TaskPreview -> userData", userData);
-          return (
-            <div
-              className="hey"
-              style={{
-                minWidth: "200px",
-                maxWidth: "350px",
-                margin: "auto",
-                width: "100%"
-              }}
-              key={_id}
-            >
-              <div className="hey1">
-                <div className="card blue-grey darken-1">
-                  <div className="card-content white-text">
-                    <span className="card-title">{name}</span>
-                    <p>{userData.userName}</p>
-                  </div>
-                  <div className="card-action">
-                    <span>{date}</span>
-                    <h4 onClick={() => handleDelete(_id)}>DELETE</h4>
-                    <h4 onClick={() => handleAddPoint(_id)}>
-                      Points: {points}
-                    </h4>
-                  </div>
-                </div>
-              </div>
-            </div>
-          );
-        })}
+      <Container>
+        {tasks &&
+          tasks.map(({ _id, name, points, date }) => {
+            return (
+              <Task
+                key={_id}
+                id={_id}
+                name={name}
+                points={points}
+                date={date}
+                userId={userId}
+              />
+            );
+          })}
+      </Container>
     </div>
   );
 };

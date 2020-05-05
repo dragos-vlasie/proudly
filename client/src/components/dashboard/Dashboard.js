@@ -28,8 +28,7 @@ export const Dashboard = () => {
           <h4>
             <b>Hey there,</b>
             <p className="flow-text grey-text text-darken-1">
-              You are logged into a full-stack{" "}
-              <span style={{ fontFamily: "monospace" }}>MERN</span> app 👏
+              Welcome to Proudly app 👏
             </p>
           </h4>
 
@@ -47,6 +46,7 @@ export const Dashboard = () => {
           </button>
         </div>
       </div>
+
       <div className="row">
         <InfoBoard users={userData} />
       </div>

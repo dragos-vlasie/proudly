@@ -6,7 +6,10 @@ import {
   POST_POINT,
   POST_TASKS
 } from "../actions/types";
-const initialState = {};
+const initialState = {
+  tasks: [],
+  data: []
+};
 
 const addPoint = (state, id) => {
   state.tasks.forEach(task => {
@@ -31,7 +34,6 @@ export default function (state = initialState, action) {
         tasks: action.payload
       };
     case GET_USERS_TASKS:
-      console.log("GET_USERS_TASKS", action.payload);
       return {
         ...state,
         tasks: action.payload
@@ -39,14 +41,15 @@ export default function (state = initialState, action) {
     case POST_TASKS:
       return {
         ...state,
-        tasks: [...state.tasks, action.payload]
+        tasks: action.payload.tasks
       };
     case POST_POINT:
       return {
         ...state,
-        tasks: addPoint(state, action.payload)
+        points: addPoint(state, action.payload)
       };
     case DELETE_TASK:
+      console.log(state);
       return {
         ...state,
         tasks: state.tasks.filter(tasks => tasks._id !== action.payload)
