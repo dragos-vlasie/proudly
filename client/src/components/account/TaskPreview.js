@@ -1,36 +1,33 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteTaskAction } from "../../actions/deleteActions";
 import { getAccountByUserIdAction } from "../../actions/getDataActions";
-import { postPointAction } from "../../actions/postDataActions";
 import Task from "./Task";
 
 export const TaskPreview = () => {
   const dispatch = useDispatch();
-  const Data = useSelector(state => state.data.tasks);
-  const userId = useSelector(state => state.auth.user.id);
+  const data = useSelector(state => state);
   const [tasks, setTasks] = useState([]);
 
   const loadAccount = useCallback(() => {
-    dispatch(getAccountByUserIdAction(userId));
-  }, [dispatch]);
+    dispatch(getAccountByUserIdAction(data.auth.user.id));
+  }, [dispatch, data.auth.user.id]);
 
-  const handleDelete = id => {
-    dispatch(deleteTaskAction(id));
-  };
+  // const handleDelete = id => {
+  //   dispatch(deleteTaskAction(id));
+  // };
 
-  const handleAddPoint = (userId, taskId) => {
-    dispatch(postPointAction(userId, taskId));
-  };
-
-  useEffect(() => {
-    loadAccount(userId);
-  }, [loadAccount]);
+  // const handleAddPoint = (userId, taskId) => {
+  //   dispatch(postPointAction(userId, taskId));
+  // };
 
   useEffect(() => {
-    setTasks(Data);
-  });
+    loadAccount(data.auth.user.id);
+  }, [loadAccount, data.auth.user.id]);
+
+  useEffect(() => {
+    setTasks(data.data.tasks);
+  }, [data.data.tasks]);
 
   return (
     <div
@@ -52,7 +49,7 @@ export const TaskPreview = () => {
                 name={name}
                 points={points}
                 date={date}
-                userId={userId}
+                userId={data.auth.user.id}
               />
             );
           })}

@@ -124,4 +124,34 @@ router.delete("/:id/:userId", async (req, res) => {
   }
 });
 
+/**
+ * @route   DELETE api/accounts/:id
+ * @desc    Delete A account
+ * @access  Private
+ */
+
+router.post("/:userId/:id/", async (req, res) => {
+  try {
+    const account = await Account.findOne({
+      "userData.userId": req.params.userId
+    });
+    if (account) {
+      account.tasks.forEach(task => {
+        if (task._id == req.params.id) {
+          task.name = req.body.name;
+          res.status(200).json({ success: true });
+        }
+      });
+      await account.save();
+    } else {
+      throw Error("No account found");
+    }
+
+    if (!edited)
+      throw Error("Something went wrong while trying to delete the account");
+  } catch (e) {
+    res.status(400).json({ msg: e.message, success: false });
+  }
+});
+
 module.exports = router;

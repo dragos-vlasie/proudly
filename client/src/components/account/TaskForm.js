@@ -25,7 +25,6 @@ export const TaskForm = () => {
       userId: userId,
       name: task
     };
-    console.log("TaskForm -> taskData", taskData);
     dispatch(addTaskAction(taskData));
   };
 
@@ -35,11 +34,11 @@ export const TaskForm = () => {
         <Container style={{ marginTop: "25px", marginBottom: "25px" }}>
           <Form onSubmit={onSubmit}>
             <Form.Group>
-              <Form.Label>Task</Form.Label>
+              <Form.Label>Add a new Task</Form.Label>
               <Form.Control
                 id="task"
                 type="text"
-                placeholder="Add Task Name"
+                placeholder="Task Name"
                 onChange={onChange}
                 value={task}
                 error={errors.msg}

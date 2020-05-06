@@ -7,24 +7,16 @@ import { useSelector } from "react-redux";
 import UserWaterModal from "./UserWaterModal";
 
 export const InfoBoard = () => {
-  const auth = useSelector(state => state.auth);
-  const staes = useSelector(state => state);
-  console.log("InfoBoard -> staes first call", staes);
+  const data = useSelector(state => state);
   const [users, setUsers] = useState([]);
-  let usersData = useSelector(state => state.data.users);
+  const auth = data.auth;
+  let usersData = data.data.users;
 
   useEffect(() => {
     setUsers(usersData);
     console.log("InfoBoard -> usersData", usersData);
   }, [usersData]);
 
-  // function interval(params) {
-  //   setInterval(function () {
-  //     console.log("interval -> every 5 seconds", staes);
-  //   }, 5000);
-  // }
-
-  // interval();
   return (
     <div
       className="InfoBoard"
@@ -51,7 +43,6 @@ export const InfoBoard = () => {
                   <Card.Title>{name}</Card.Title>
                   <Card.Text></Card.Text>
                 </Card.Body>
-
                 <ListGroup className="list-group-flush">
                   <ListGroupItem>
                     <Card.Header>Cups of water: {cupsOfWater}</Card.Header>
@@ -59,7 +50,7 @@ export const InfoBoard = () => {
                   <ListGroupItem>Email : {email}</ListGroupItem>
                   <ListGroupItem>Joined on : {date.slice(0, 10)}</ListGroupItem>
                 </ListGroup>
-                {auth && auth.user.id == _id ? (
+                {auth && auth.user.id === _id ? (
                   <UserWaterModal id={_id} />
                 ) : (
                   <Card.Body>

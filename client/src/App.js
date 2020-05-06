@@ -8,8 +8,8 @@ import Account from "./components/account/Account";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import Dashboard from "./components/dashboard/Dashboard";
+import Header from "./components/layout/Header";
 import Landing from "./components/layout/Landing";
-import Navbar from "./components/layout/Navbar";
 import PrivateRoute from "./components/private-route/PrivateRoute";
 import store from "./store";
 import setAuthToken from "./utils/setAuthToken";
@@ -38,7 +38,7 @@ function App() {
     <Provider store={store}>
       <Router>
         <div className="App">
-          <Navbar />
+          <Header />
           <Route exact path="/" component={Landing} />
           <Route exact path="/account" component={Account} />
           <Route exact path="/register" component={Register} />

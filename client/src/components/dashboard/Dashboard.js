@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect } from "react";
+import Container from "react-bootstrap/Container";
 import { useDispatch } from "react-redux";
 import { getUsersAction } from "../../actions/getDataActions";
 import InfoBoard from "../infoBoard/InfoBoard";
@@ -15,23 +16,20 @@ export const Dashboard = () => {
   }, [loadUsers]);
 
   return (
-    <div
-      style={{ height: "75vh", flexDirection: "column" }}
-      className="container valign-wrapper"
-    >
+    <Container>
       <div className="row">
         <div className="col s12 center-align">
           <h4>
             <b>Hey there,</b>
             <p className="flow-text grey-text text-darken-1">
-              Welcome to Proudly app 👏
+              Welcome to Proudly app
             </p>
           </h4>
         </div>
       </div>
 
       <InfoBoard />
-    </div>
+    </Container>
   );
 };
 export default Dashboard;

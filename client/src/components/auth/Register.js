@@ -30,6 +30,8 @@ export const Register = withRouter(({ history }) => {
       case "password2":
         setPassword2(e.target.value);
         break;
+      default:
+        setPassword2("");
     }
   };
 

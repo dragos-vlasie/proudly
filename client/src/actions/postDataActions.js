@@ -45,13 +45,13 @@ export const postPointAction = (userId, taskId) => dispatch => {
 };
 
 // edit Task
-export const editTaskAction = (userId, taskId, taskData) => dispatch => {
+export const editTaskAction = (userId, id, taskData) => dispatch => {
   axios
-    .post(`/api/accounts/${userId}/${taskId}/`, taskData)
+    .post(`/api/accounts/${userId}/${id}/`, taskData)
     .then(res => {
       dispatch({
         type: EDIT_TASK,
-        payload: { task: taskData.name, id: taskId }
+        payload: { task: taskData.name, id: id }
       });
     }) // re-direct to login on successful register
     .catch(err => {
@@ -64,7 +64,6 @@ export const editTaskAction = (userId, taskId, taskData) => dispatch => {
 
 // Edit water cup value
 export const editCupsValueAction = (userId, cupsValueData) => dispatch => {
-  console.log("userId", userId);
   axios
     .post(`api/users/${userId}/`, cupsValueData)
     .then(res => {

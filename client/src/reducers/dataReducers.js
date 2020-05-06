@@ -26,22 +26,19 @@ const initialState = {
 const updateTask = (state, payload) => {
   state.tasks.forEach(task => {
     if (task._id === payload.id) {
-      console.log(" task.name", task.name);
       task.name = payload.task;
     }
   });
+  console.log("updateTask -> state.tasks", state.tasks);
   return state.tasks;
 };
 
 const updateCups = (state, payload) => {
-  console.log("updateCups -> state.users", state.users);
   state.users.forEach(user => {
-    console.log("updateCups -> user", user._id);
     if (user._id === payload.userId) {
       user.cupsOfWater = parseInt(payload.cupsValueData.value);
     }
   });
-  console.log("updateCups -> state.users", state.users);
   return state.users;
 };
 
@@ -73,7 +70,6 @@ export default function (state = initialState, action) {
         // points: addPoint(state, action.payload)
       };
     case EDIT_TASK:
-      console.log("action.payload", action.payload);
       return {
         ...state,
         tasks: updateTask(state, action.payload)
@@ -84,7 +80,6 @@ export default function (state = initialState, action) {
         users: updateCups(state, action.payload)
       };
     case DELETE_TASK:
-      console.log(state);
       return {
         ...state,
         tasks: state.tasks.filter(tasks => tasks._id !== action.payload)
