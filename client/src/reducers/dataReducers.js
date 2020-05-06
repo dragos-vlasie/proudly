@@ -1,13 +1,4 @@
-import {
-  DELETE_TASK,
-  EDIT_CUPS,
-  EDIT_TASK,
-  GET_TASKS,
-  GET_USERS,
-  GET_USERS_TASKS,
-  POST_POINT,
-  POST_TASKS
-} from "../actions/types";
+import { DELETE_TASK, EDIT_CUPS, EDIT_TASK, GET_TASKS, GET_USERS, GET_USERS_TASKS, POST_POINT, POST_TASKS } from "../actions/types";
 const initialState = {
   tasks: [],
   data: []
@@ -29,7 +20,6 @@ const updateTask = (state, payload) => {
       task.name = payload.task;
     }
   });
-  console.log("updateTask -> state.tasks", state.tasks);
   return state.tasks;
 };
 

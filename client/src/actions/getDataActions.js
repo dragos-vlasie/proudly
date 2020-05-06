@@ -21,11 +21,9 @@ export const getUsersAction = () => dispatch => {
 
 // Get Users tasks
 export const getAccountByUserIdAction = id => dispatch => {
-  console.log("get Account by user id fired", id);
   axios
     .get(`/api/accounts/${id}/`)
     .then(res => {
-      console.log("getAccountByUserIdAction -finish", res);
       dispatch({
         type: GET_USERS_TASKS,
         payload: res.data
@@ -44,7 +42,6 @@ export const getTasksAction = () => dispatch => {
   axios
     .get("/api/tasks/")
     .then(res => {
-      console.log("res", res);
       dispatch({
         type: GET_TASKS,
         payload: res.data

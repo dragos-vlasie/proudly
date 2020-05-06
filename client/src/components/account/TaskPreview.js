@@ -8,7 +8,6 @@ export const TaskPreview = () => {
   const dispatch = useDispatch();
   const data = useSelector(state => state);
   const [tasks, setTasks] = useState([]);
-  console.log("TaskPreview -> tasks", tasks);
 
   const loadAccount = useCallback(() => {
     dispatch(getAccountByUserIdAction(data.auth.user.id));

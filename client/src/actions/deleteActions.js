@@ -6,7 +6,6 @@ export const deleteTaskAction = (id, userId) => dispatch => {
   axios
     .delete(`/api/accounts/${id}/${userId}`)
     .then(res => {
-      console.log("res", res);
       dispatch({
         type: DELETE_TASK,
         payload: id

@@ -14,7 +14,6 @@ export const InfoBoard = () => {
 
   useEffect(() => {
     setUsers(usersData);
-    console.log("InfoBoard -> usersData", usersData);
   }, [usersData]);
 
   return (
