@@ -102,7 +102,6 @@ export const Task = ({ id, name, points, date, userId, subTasks }) => {
             style={{ justifyContent: "space-between", height: "auto" }}
           >
             <OverlayTrigger
-              key="top"
               placement={"top"}
               overlay={
                 <Tooltip id={`tooltip-top`}>
@@ -115,7 +114,6 @@ export const Task = ({ id, name, points, date, userId, subTasks }) => {
               </Button>
             </OverlayTrigger>{" "}
             <OverlayTrigger
-              key="top"
               placement={"top"}
               overlay={
                 <Tooltip id={`tooltip-top`}>
@@ -128,7 +126,6 @@ export const Task = ({ id, name, points, date, userId, subTasks }) => {
               </Button>
             </OverlayTrigger>{" "}
             <OverlayTrigger
-              key="top"
               placement={"top"}
               overlay={
                 <Tooltip id={`tooltip-top`}>
