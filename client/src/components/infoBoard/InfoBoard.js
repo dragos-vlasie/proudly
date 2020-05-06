@@ -1,6 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
+import ListGroup from "react-bootstrap/ListGroup";
+import ListGroupItem from "react-bootstrap/ListGroupItem";
+import { useSelector } from "react-redux";
+import UserWaterModal from "./UserWaterModal";
 
-export const InfoBoard = ({ users }) => {
+export const InfoBoard = () => {
+  const auth = useSelector(state => state.auth);
+  const staes = useSelector(state => state);
+  console.log("InfoBoard -> staes first call", staes);
+  const [users, setUsers] = useState([]);
+  let usersData = useSelector(state => state.data.users);
+
+  useEffect(() => {
+    setUsers(usersData);
+    console.log("InfoBoard -> usersData", usersData);
+  }, [usersData]);
+
+  // function interval(params) {
+  //   setInterval(function () {
+  //     console.log("interval -> every 5 seconds", staes);
+  //   }, 5000);
+  // }
+
+  // interval();
   return (
     <div
       className="InfoBoard"
@@ -8,37 +32,51 @@ export const InfoBoard = ({ users }) => {
         display: "flex",
         flexDirection: "row",
         flexWrap: "wrap",
-        justifyContent: "space-between"
+        justifyContent: "space-around",
+        width: "100%"
       }}
     >
       {users &&
-        users.map(({ _id, name, email, date }) => {
-          return (
-            <div
-              className="hey"
-              style={{
-                minWidth: "200px",
-                maxWidth: "350px",
-                margin: "auto",
-                width: "100%"
-              }}
-              key={_id}
-            >
-              <div className="hey1">
-                <div className="card blue-grey darken-1">
-                  <div className="card-content white-text">
-                    <span className="card-title">{name}</span>
-                    <p></p>
-                  </div>
-                  <div className="card-action">
-                    <span>{email}</span>
-                    <span>{date}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          );
-        })}
+        users
+          .sort(function (a, b) {
+            var nameA = a.cupsOfWater;
+            var nameB = b.cupsOfWater;
+            return nameB - nameA;
+          })
+          .map(({ _id, name, email, date, cupsOfWater }) => {
+            return (
+              <Card style={{ width: "18rem" }} key={_id}>
+                {/* <Card.Img variant="top" src="holder.js/100px180?text=Image cap" /> */}
+                <Card.Body>
+                  <Card.Title>{name}</Card.Title>
+                  <Card.Text></Card.Text>
+                </Card.Body>
+
+                <ListGroup className="list-group-flush">
+                  <ListGroupItem>
+                    <Card.Header>Cups of water: {cupsOfWater}</Card.Header>
+                  </ListGroupItem>
+                  <ListGroupItem>Email : {email}</ListGroupItem>
+                  <ListGroupItem>Joined on : {date.slice(0, 10)}</ListGroupItem>
+                </ListGroup>
+                {auth && auth.user.id == _id ? (
+                  <UserWaterModal id={_id} />
+                ) : (
+                  <Card.Body>
+                    <Button
+                      style={{
+                        background: "none",
+                        boxShadow: "none",
+                        border: "none"
+                      }}
+                      type="text"
+                      size="sm"
+                    ></Button>
+                  </Card.Body>
+                )}
+              </Card>
+            );
+          })}
     </div>
   );
 };

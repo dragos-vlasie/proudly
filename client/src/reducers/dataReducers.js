@@ -1,5 +1,7 @@
 import {
   DELETE_TASK,
+  EDIT_CUPS,
+  EDIT_TASK,
   GET_TASKS,
   GET_USERS,
   GET_USERS_TASKS,
@@ -11,14 +13,36 @@ const initialState = {
   data: []
 };
 
-const addPoint = (state, id) => {
+// const addPoint = (state, id) => {
+//   state.tasks.forEach(task => {
+//     if (task._id === id) {
+//       task.points++;
+//     }
+//   });
+//   console.log("addPoint -> state.tasks;", state.tasks);
+//   return state.tasks;
+// };
+
+const updateTask = (state, payload) => {
   state.tasks.forEach(task => {
-    if (task._id === id) {
-      task.points++;
+    if (task._id === payload.id) {
+      console.log(" task.name", task.name);
+      task.name = payload.task;
     }
   });
-  console.log("addPoint -> state.tasks;", state.tasks);
   return state.tasks;
+};
+
+const updateCups = (state, payload) => {
+  console.log("updateCups -> state.users", state.users);
+  state.users.forEach(user => {
+    console.log("updateCups -> user", user._id);
+    if (user._id === payload.userId) {
+      user.cupsOfWater = parseInt(payload.cupsValueData.value);
+    }
+  });
+  console.log("updateCups -> state.users", state.users);
+  return state.users;
 };
 
 export default function (state = initialState, action) {
@@ -45,8 +69,19 @@ export default function (state = initialState, action) {
       };
     case POST_POINT:
       return {
+        ...state
+        // points: addPoint(state, action.payload)
+      };
+    case EDIT_TASK:
+      console.log("action.payload", action.payload);
+      return {
         ...state,
-        points: addPoint(state, action.payload)
+        tasks: updateTask(state, action.payload)
+      };
+    case EDIT_CUPS:
+      return {
+        ...state,
+        users: updateCups(state, action.payload)
       };
     case DELETE_TASK:
       console.log(state);

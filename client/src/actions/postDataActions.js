@@ -1,5 +1,11 @@
 import axios from "axios";
-import { GET_ERRORS, POST_POINT, POST_TASKS } from "./types";
+import {
+  EDIT_CUPS,
+  EDIT_TASK,
+  GET_ERRORS,
+  POST_POINT,
+  POST_TASKS
+} from "./types";
 
 // Post a new Task
 export const addTaskAction = newTask => dispatch => {
@@ -28,6 +34,43 @@ export const postPointAction = (userId, taskId) => dispatch => {
       dispatch({
         type: POST_POINT,
         payload: userId
+      });
+    }) // re-direct to login on successful register
+    .catch(err => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      });
+    });
+};
+
+// edit Task
+export const editTaskAction = (userId, taskId, taskData) => dispatch => {
+  axios
+    .post(`/api/accounts/${userId}/${taskId}/`, taskData)
+    .then(res => {
+      dispatch({
+        type: EDIT_TASK,
+        payload: { task: taskData.name, id: taskId }
+      });
+    }) // re-direct to login on successful register
+    .catch(err => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      });
+    });
+};
+
+// Edit water cup value
+export const editCupsValueAction = (userId, cupsValueData) => dispatch => {
+  console.log("userId", userId);
+  axios
+    .post(`api/users/${userId}/`, cupsValueData)
+    .then(res => {
+      dispatch({
+        type: EDIT_CUPS,
+        payload: { cupsValueData, userId }
       });
     }) // re-direct to login on successful register
     .catch(err => {

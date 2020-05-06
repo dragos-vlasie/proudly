@@ -107,4 +107,32 @@ router.get("/", async (req, res) => {
   }
 });
 
+/**
+ * @route   EDIT api/users/userId
+ * @desc    Delete A account
+ * @access  Private
+ */
+
+router.post("/:userId", async (req, res) => {
+  console.log("req.body", req.body);
+  console.log("req.body", req.params.userId);
+  try {
+    const user = await User.findOne({
+      _id: req.params.userId
+    });
+    if (user) {
+      user.cupsOfWater = req.body.value;
+      await user.save();
+      res.status(200).json(user);
+    } else {
+      throw Error("No user found");
+    }
+
+    // if (!edited)
+    //   throw Error("Something went wrong while trying to delete the account");
+  } catch (e) {
+    res.status(400).json({ msg: e.message, success: false });
+  }
+});
+
 module.exports = router;

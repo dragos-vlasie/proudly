@@ -33,43 +33,6 @@ export const TaskForm = () => {
     <div className="TaskForm">
       <div className="container">
         <Container style={{ marginTop: "25px", marginBottom: "25px" }}>
-          {/* <div style={{ marginTop: "4rem" }} className="row">
-          <div className="col s8">
-            <form onSubmit={onSubmit}>
-              <div className="input-field col s12">
-                <input
-                  onChange={onChange}
-                  value={task}
-                  error={errors.msg}
-                  id="task"
-                  type="text"
-                  className={classnames("", {
-                    invalid: errors.msg || errors.tasknotfound
-                  })}
-                />
-                <label htmlFor="email">Task Name</label>
-                <span className="red-text">
-                  {errors.msg}
-                  {errors.msg}
-                </span>
-              </div>
-              <div className="col s12" style={{ paddingLeft: "11.250px" }}>
-                <button
-                  style={{
-                    width: "150px",
-                    borderRadius: "3px",
-                    letterSpacing: "1.5px",
-                    marginTop: "1rem"
-                  }}
-                  type="submit"
-                  className="btn btn-large waves-effect waves-light hoverable blue accent-3"
-                >
-                  Add
-                </button>
-              </div>
-            </form>
-          </div>
-        </div> */}
           <Form onSubmit={onSubmit}>
             <Form.Group>
               <Form.Label>Task</Form.Label>

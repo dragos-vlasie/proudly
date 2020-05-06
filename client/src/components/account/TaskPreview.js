@@ -9,9 +9,6 @@ import Task from "./Task";
 export const TaskPreview = () => {
   const dispatch = useDispatch();
   const Data = useSelector(state => state.data.tasks);
-  const DataBig = useSelector(state => state);
-  console.log("TaskPreview -> DataBig", DataBig);
-  const userName = useSelector(state => state.auth.user.name);
   const userId = useSelector(state => state.auth.user.id);
   const [tasks, setTasks] = useState([]);
 

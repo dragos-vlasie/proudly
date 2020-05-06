@@ -76,13 +76,11 @@ router.post("/", async (req, res) => {
 // @access  Private
 
 router.post("/:id/:id/points", async (req, res) => {
-  console.log("req", req.params);
   try {
     const account = await Account.findOne({
       "userData.userId": req.params.id
     });
     if (!account) throw Error("No account found");
-    console.log("account", account);
 
     //  account.tasks.forEach(element => {
     //    if (element._id === ) {
@@ -115,7 +113,6 @@ router.delete("/:id/:userId", async (req, res) => {
     const removed = account.tasks.forEach(task => {
       if (task._id == req.params.id) {
         task.remove();
-        console.log("account", account);
         account.save();
         res.status(200).json({ success: true });
       }
