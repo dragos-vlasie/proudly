@@ -8,6 +8,7 @@ export const TaskPreview = () => {
   const dispatch = useDispatch();
   const data = useSelector(state => state);
   const [tasks, setTasks] = useState([]);
+  console.log("TaskPreview -> tasks", tasks);
 
   const loadAccount = useCallback(() => {
     dispatch(getAccountByUserIdAction(data.auth.user.id));
@@ -41,7 +42,7 @@ export const TaskPreview = () => {
     >
       <Container>
         {tasks &&
-          tasks.map(({ _id, name, points, date }) => {
+          tasks.map(({ _id, name, points, date, subTasks }) => {
             return (
               <Task
                 key={_id}
@@ -50,6 +51,7 @@ export const TaskPreview = () => {
                 points={points}
                 date={date}
                 userId={data.auth.user.id}
+                subTasks={subTasks}
               />
             );
           })}

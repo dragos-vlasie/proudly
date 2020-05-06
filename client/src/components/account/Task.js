@@ -4,11 +4,13 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
 import { useDispatch } from "react-redux";
 import { deleteTaskAction } from "../../actions/deleteActions";
 import { editTaskAction } from "../../actions/postDataActions";
 
-export const Task = ({ id, name, points, date, userId }) => {
+export const Task = ({ id, name, points, date, userId, subTasks }) => {
   const [show, setShow] = useState(false);
   const [task, setTask] = useState("");
   const dispatch = useDispatch();
@@ -65,7 +67,11 @@ export const Task = ({ id, name, points, date, userId }) => {
             <Card.Body>Hello! this can be a sub-task</Card.Body>
           </Accordion.Collapse>
         </Card>
-        <Modal show={show} onHide={handleClose}>
+        <Modal
+          show={show}
+          onHide={handleClose}
+          style={{ boxShadow: "none", background: "none" }}
+        >
           <Modal.Header closeButton>
             <Modal.Title>Edit your tasks here</Modal.Title>
           </Modal.Header>
@@ -80,27 +86,60 @@ export const Task = ({ id, name, points, date, userId }) => {
                   placeholder={name}
                 />
               </Form.Group>
-              <Form.Group controlId="formGroupPassword">
-                <Form.Label>Edit Small Task</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Small task name to be addded"
-                />
-              </Form.Group>
+
+              {subTasks && subTasks.length ? (
+                <Form.Group>
+                  <Form.Label>Edit Small Task</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Small task name to be addded"
+                  />
+                </Form.Group>
+              ) : null}
             </Form>
           </Modal.Body>
           <Modal.Footer
             style={{ justifyContent: "space-between", height: "auto" }}
           >
-            <Button variant="danger" onClick={handleDelete}>
-              Delete
-            </Button>
-            <Button variant="secondary" onClick={handleClose}>
-              Close
-            </Button>
-            <Button variant="primary" onClick={updateTasks}>
-              Save Changes
-            </Button>
+            <OverlayTrigger
+              key="top"
+              placement={"top"}
+              overlay={
+                <Tooltip id={`tooltip-top`}>
+                  <strong>This will remove the task</strong>.
+                </Tooltip>
+              }
+            >
+              <Button variant="danger" onClick={handleDelete}>
+                Completed
+              </Button>
+            </OverlayTrigger>{" "}
+            <OverlayTrigger
+              key="top"
+              placement={"top"}
+              overlay={
+                <Tooltip id={`tooltip-top`}>
+                  <strong>This will close the modal</strong>.
+                </Tooltip>
+              }
+            >
+              <Button variant="secondary" onClick={handleClose}>
+                Close
+              </Button>
+            </OverlayTrigger>{" "}
+            <OverlayTrigger
+              key="top"
+              placement={"top"}
+              overlay={
+                <Tooltip id={`tooltip-top`}>
+                  <strong>This will update the task name</strong>.
+                </Tooltip>
+              }
+            >
+              <Button variant="primary" onClick={updateTasks}>
+                Save Changes
+              </Button>
+            </OverlayTrigger>{" "}
           </Modal.Footer>
         </Modal>
       </Accordion>
