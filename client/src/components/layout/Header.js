@@ -29,7 +29,7 @@ export const Header = () => {
       </Nav.Item>
       <Nav className="justify-content-end flex-grow-1">
         <Nav.Item>
-          <Link to="/" className="nav-link">
+          <Link to="/" className="nav-link" onClick={onLogoutClick}>
             Logout
           </Link>
         </Nav.Item>
@@ -38,11 +38,13 @@ export const Header = () => {
   );
 
   const guestLinks = (
-    <Nav.Item>
-      <Link to="/login" className="nav-link">
-        Please log in
-      </Link>
-    </Nav.Item>
+    <Nav className="justify-content-end flex-grow-1">
+      <Nav.Item>
+        <Link to="/login" className="nav-link">
+          Please log in
+        </Link>
+      </Nav.Item>
+    </Nav>
   );
 
   return (
