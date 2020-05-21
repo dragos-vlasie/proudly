@@ -125,8 +125,8 @@ router.delete("/:id/:userId", async (req, res) => {
 });
 
 /**
- * @route   DELETE api/accounts/:id
- * @desc    Delete A account
+ * @route   POST api/accounts/:id
+ * @desc    post a task/subtask
  * @access  Private
  */
 
@@ -136,19 +136,18 @@ router.post("/:userId/:id/", async (req, res) => {
       "userData.userId": req.params.userId
     });
     if (account) {
-      account.tasks.forEach(task => {
+      await account.tasks.forEach(task => {
         if (task._id == req.params.id) {
-          task.name = req.body.name;
-          res.status(200).json({ success: true });
+          req.body.subTask
+            ? task.subTasks.push({ name: req.body.name, checked: false })
+            : (task.name = req.body.name);
         }
       });
+      res.status(200).json(account.tasks);
       await account.save();
     } else {
       throw Error("No account found");
     }
-
-    if (!edited)
-      throw Error("Something went wrong while trying to delete the account");
   } catch (e) {
     res.status(400).json({ msg: e.message, success: false });
   }

@@ -17,6 +17,11 @@ const AccountSchema = new Schema({
           checked: Boolean,
           date: { type: Date, default: Date.now }
         }
+      ],
+      Information: [
+        {
+          content: String
+        }
       ]
     }
   ],

@@ -8,5 +8,6 @@ export const GET_USERS_TASKS = "GET_USERS_TASKS";
 export const POST_TASKS = "POST_TASKS";
 export const DELETE_TASK = "DELETE_TASK";
 export const EDIT_TASK = "EDIT_TASK";
+export const EDIT_SUBTASKS = "EDIT_SUBTASKS";
 export const POST_POINT = "POST_POINT";
 export const EDIT_CUPS = "EDIT_CUPS";

@@ -14,7 +14,7 @@ export const Landing = () => {
           <h4>Proudly - track your productivity</h4>
           <br />
           <div className="col s6">
-            <p class="text-monospace">
+            <p className="text-monospace">
               If you don't have an account please create a new one by clicking
               the button bellow
             </p>
@@ -33,7 +33,7 @@ export const Landing = () => {
             </Button>
           </div>
           <div className="col s6">
-            <p class="text-monospace">
+            <p className="text-monospace">
               If you have an account click the log-in button to get access to
               the app
             </p>

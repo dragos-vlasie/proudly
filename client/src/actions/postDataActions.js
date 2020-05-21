@@ -1,6 +1,7 @@
 import axios from "axios";
 import {
   EDIT_CUPS,
+  EDIT_SUBTASKS,
   EDIT_TASK,
   GET_ERRORS,
   POST_POINT,
@@ -52,6 +53,24 @@ export const editTaskAction = (userId, id, taskData) => dispatch => {
       dispatch({
         type: EDIT_TASK,
         payload: { task: taskData.name, id: id }
+      });
+    }) // re-direct to login on successful register
+    .catch(err => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      });
+    });
+};
+
+// edit subTask
+export const editSubTaskAction = (userId, id, subTaskData) => dispatch => {
+  axios
+    .post(`/api/accounts/${userId}/${id}/`, subTaskData)
+    .then(res => {
+      dispatch({
+        type: EDIT_SUBTASKS,
+        payload: { subTask: subTaskData, id: id }
       });
     }) // re-direct to login on successful register
     .catch(err => {

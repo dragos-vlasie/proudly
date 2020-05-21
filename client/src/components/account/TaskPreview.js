@@ -7,6 +7,7 @@ import Task from "./Task";
 export const TaskPreview = () => {
   const dispatch = useDispatch();
   const data = useSelector(state => state);
+  console.log("TaskPreview -> data", data);
   const [tasks, setTasks] = useState([]);
 
   const loadAccount = useCallback(() => {

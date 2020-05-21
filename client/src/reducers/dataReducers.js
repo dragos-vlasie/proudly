@@ -1,4 +1,14 @@
-import { DELETE_TASK, EDIT_CUPS, EDIT_TASK, GET_TASKS, GET_USERS, GET_USERS_TASKS, POST_POINT, POST_TASKS } from "../actions/types";
+import {
+  DELETE_TASK,
+  EDIT_CUPS,
+  EDIT_SUBTASKS,
+  EDIT_TASK,
+  GET_TASKS,
+  GET_USERS,
+  GET_USERS_TASKS,
+  POST_POINT,
+  POST_TASKS
+} from "../actions/types";
 const initialState = {
   tasks: [],
   data: []
@@ -73,6 +83,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         tasks: state.tasks.filter(tasks => tasks._id !== action.payload)
+      };
+    case EDIT_SUBTASKS:
+      console.log(" action.payload", action.payload);
+      return {
+        ...state,
+        tasks: { ...state.tasks, subTasks: action.payload.subTask }
       };
     default:
       return state;
