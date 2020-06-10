@@ -110,11 +110,23 @@ router.delete("/:id/:userId", async (req, res) => {
     });
     if (!account) throw Error("No account found");
 
-    const removed = account.tasks.forEach(task => {
+    const removed = await account.tasks.forEach(task => {
       if (task._id == req.params.id) {
         task.remove();
         account.save();
         res.status(200).json({ success: true });
+      } else {
+        const subtaskId = req.params.id.split("|")[0];
+        const taskId = req.params.id.split("|")[1];
+        if (task._id == taskId) {
+          task.subTasks.forEach(subTask => {
+            if (subTask._id == subtaskId) {
+              subTask.remove();
+              account.save();
+              res.status(200).json(task);
+            }
+          });
+        }
       }
     });
     if (!removed)
@@ -125,7 +137,7 @@ router.delete("/:id/:userId", async (req, res) => {
 });
 
 /**
- * @route   POST api/accounts/:id
+ * @route   POST api/accounts/:userId/:subTaskId
  * @desc    post a task/subtask
  * @access  Private
  */

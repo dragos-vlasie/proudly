@@ -7,7 +7,10 @@ import Modal from "react-bootstrap/Modal";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 import { useDispatch } from "react-redux";
-import { deleteTaskAction } from "../../actions/deleteActions";
+import {
+  deleteSubTaskAction,
+  deleteTaskAction
+} from "../../actions/deleteActions";
 import {
   editSubTaskAction,
   editTaskAction
@@ -35,9 +38,16 @@ export const Task = ({ id, name, points, date, subTasks, userId }) => {
     setVisibility(false);
   };
 
+  const deleteSubTask = subTaskId => {
+    console.log("Task -> userId", userId);
+    const bothIds = subTaskId._id + "|" + id;
+    console.log("Task -> bothIds", bothIds);
+    dispatch(deleteSubTaskAction(bothIds, userId));
+  };
+
   const onChange = e => {
     switch (e.target.id) {
-      case "formGroupSubTaskDescription":
+      case "ControlTextarea1":
         setSubTask(e.target.value);
         break;
       case "formGroupTaskName":
@@ -50,7 +60,6 @@ export const Task = ({ id, name, points, date, subTasks, userId }) => {
   };
 
   const taskForm = useRef();
-  const subTaskForm = useRef();
 
   const handleAddSubTask = () => {
     const subTaskData = {
@@ -63,7 +72,6 @@ export const Task = ({ id, name, points, date, subTasks, userId }) => {
   };
 
   const updateTasks = () => {
-    console.log("updateTasks -> taskForm", taskForm.current.value);
     const taskData = {
       name: task
     };
@@ -106,21 +114,20 @@ export const Task = ({ id, name, points, date, subTasks, userId }) => {
               Edit
             </Button>{" "}
           </Accordion.Toggle>
-
           {subTasks &&
-            subTasks.map(({ name }) => {
-              console.log("Task -> name", name);
-              console.log("Task -> subTask", subTask);
+            subTasks.map(({ name, _id }) => {
               return (
                 <>
                   <Accordion.Collapse
                     eventKey="0"
                     style={{ position: "relative" }}
                   >
-                    <Card.Body style={!visibility ? visible : notVisible}>
+                    <Card.Body
+                      style={{ boxShadow: "0px 3px 3px 0px rgb(0,0,0,0.2)" }}
+                    >
                       {name}
                       <Button
-                        variant="primary"
+                        variant="danger"
                         size="sm"
                         style={{
                           position: "absolute",
@@ -130,49 +137,10 @@ export const Task = ({ id, name, points, date, subTasks, userId }) => {
                           margin: "auto",
                           height: "28px"
                         }}
-                        onClick={handleVisibility}
+                        onClick={() => deleteSubTask({ _id })}
                       >
-                        Add
+                        Delete
                       </Button>{" "}
-                    </Card.Body>
-                  </Accordion.Collapse>
-
-                  <Accordion.Collapse
-                    eventKey="0"
-                    style={{ position: "relative" }}
-                  >
-                    <Card.Body
-                      style={{ position: "relative" }}
-                      style={visibility ? visible : notVisible}
-                    >
-                      <Form>
-                        <Form.Group controlId="formGroupSubTaskDescription">
-                          <Form.Label>Add description/task</Form.Label>
-                          <Form.Control
-                            ref={subTaskForm}
-                            onChange={onChange}
-                            type="text"
-                            value={subTask}
-                            placeholder="Add data"
-                          />
-                        </Form.Group>
-                        <Button
-                          disabled={subTask.length === 0 ? true : false}
-                          variant="primary"
-                          size="sm"
-                          style={{
-                            position: "absolute",
-                            right: "5px",
-                            top: "0",
-                            bottom: "0",
-                            margin: "auto",
-                            height: "28px"
-                          }}
-                          onClick={handleAddSubTask}
-                        >
-                          Confirm
-                        </Button>{" "}
-                      </Form>
                     </Card.Body>
                   </Accordion.Collapse>
                 </>
@@ -199,6 +167,25 @@ export const Task = ({ id, name, points, date, subTasks, userId }) => {
                   placeholder={name}
                 />
               </Form.Group>
+            </Form>
+            <Form style={{ position: "relative" }}>
+              <Form.Group controlId="ControlTextarea1">
+                <Form.Label>Add description/task</Form.Label>
+                <Form.Control
+                  value={subTask}
+                  onChange={onChange}
+                  as="textarea"
+                  rows="3"
+                />
+              </Form.Group>
+              <Button
+                disabled={subTask.length === 0 ? true : false}
+                variant="primary"
+                size="sm"
+                onClick={handleAddSubTask}
+              >
+                Add SubTask
+              </Button>{" "}
             </Form>
           </Modal.Body>
           <Modal.Footer

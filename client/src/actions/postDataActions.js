@@ -70,7 +70,7 @@ export const editSubTaskAction = (userId, id, subTaskData) => dispatch => {
     .then(res => {
       dispatch({
         type: EDIT_SUBTASKS,
-        payload: { subTask: subTaskData, id: id }
+        payload: { tasks: res.data, id: id }
       });
     }) // re-direct to login on successful register
     .catch(err => {

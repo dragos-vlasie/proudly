@@ -41,7 +41,7 @@ export const TaskPreview = () => {
       }}
     >
       <Container>
-        {tasks &&
+        {tasks && tasks.length ? (
           tasks.map(({ _id, name, points, date, subTasks }) => {
             return (
               <Task
@@ -54,7 +54,10 @@ export const TaskPreview = () => {
                 subTasks={subTasks}
               />
             );
-          })}
+          })
+        ) : (
+          <p>No task added yet or check your internet connection</p>
+        )}
       </Container>
     </div>
   );

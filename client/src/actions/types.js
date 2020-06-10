@@ -11,3 +11,4 @@ export const EDIT_TASK = "EDIT_TASK";
 export const EDIT_SUBTASKS = "EDIT_SUBTASKS";
 export const POST_POINT = "POST_POINT";
 export const EDIT_CUPS = "EDIT_CUPS";
+export const DELETE_SUB_TASK = "DELETE_SUB_TASK";
